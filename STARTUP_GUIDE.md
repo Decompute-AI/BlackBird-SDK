@@ -36,7 +36,7 @@ python examples/chat_response.py
 
 #### Prerequisites
 - Windows 10/11 (64-bit)
-- Python 3.8-3.11
+- Python 3.12
 - 8GB+ RAM
 - Visual Studio Build Tools (for some packages)
 
@@ -81,7 +81,7 @@ taskkill /PID <PID> /F
 
 #### Prerequisites
 - macOS 10.15+ (Intel or Apple Silicon)
-- Python 3.8-3.11
+- Python 3.12
 - 8GB+ RAM
 - Xcode Command Line Tools
 
@@ -121,7 +121,7 @@ sdk.initialize_agent("general", model_name="mlx-community/Qwen3-4B-4bit")
 
 #### Prerequisites
 - Ubuntu 18.04+ or equivalent
-- Python 3.8-3.11
+- Python 3.12
 - 8GB+ RAM
 - Build essentials
 
@@ -307,12 +307,6 @@ sdk = BlackbirdSDK(runasync=True)
 
 ## 📊 Performance Benchmarks
 
-### Model Performance (Approximate)
-| Model | Platform | Memory | Speed | Quality |
-|-------|----------|--------|-------|---------|
-| Qwen3-1.7B-4bit | Windows/Linux | 4GB | Fast | Good |
-| Qwen3-4B-4bit | macOS | 6GB | Medium | Better |
-| Qwen3-7B-4bit | All | 8GB | Slow | Best |
 
 ### Hardware Recommendations
 | Use Case | CPU | RAM | GPU | Storage |
@@ -360,8 +354,7 @@ After successful installation:
 
 1. **Read the Examples**: Explore `examples/` directory
 2. **Check Documentation**: Read `README.md` and `chat_demo.md`
-3. **Try Custom Agents**: Use agent creation examples
-4. **Explore Features**: Test file processing, web search, etc.
+3. Explore Features**: Test file processing
 5. **Join Community**: Check GitHub issues and discussions
 
 ## 🆘 Getting Help
