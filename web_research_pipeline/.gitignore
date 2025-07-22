@@ -1,0 +1,197 @@
+# Environment files
+.env
+.env.local
+.env.production
+.env.testing
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Virtual environments
+venv/
+env/
+ENV/
+env.bak/
+venv.bak/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Logs
+*.log
+logs/
+log/
+
+# Cache
+cache/
+.cache/
+*.cache
+
+# Data
+data/
+*.db
+*.sqlite
+*.sqlite3
+
+# Models and checkpoints
+models/
+checkpoints/
+*.pth
+*.pt
+*.bin
+*.safetensors
+
+# FAISS indices
+*.faiss
+*.index
+
+# Temporary files
+tmp/
+temp/
+*.tmp
+*.temp
+
+# API keys and secrets
+secrets.json
+api_keys.json
+credentials.json
+
+# Test coverage
+.coverage
+htmlcov/
+.tox/
+.pytest_cache/
+
+# Documentation build
+docs/_build/
+site/
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# pyenv
+.python-version
+
+# pipenv
+Pipfile.lock
+
+# PEP 582
+__pypackages__/
+
+# Celery
+celerybeat-schedule
+celerybeat.pid
+
+# SageMath parsed files
+*.sage.py
+
+# Spyder project settings
+.spyderproject
+.spyproject
+
+# Rope project settings
+.ropeproject
+
+# mkdocs documentation
+/site
+
+# mypy
+.mypy_cache/
+.dmypy.json
+dmypy.json
+
+# Pyre type checker
+.pyre/
+
+# Backup files
+*.bak
+*.backup
+*.old
+
+# Compressed files
+*.zip
+*.tar.gz
+*.rar
+
+# Database files
+*.db
+*.sqlite
+*.sqlite3
+
+# Vector database files
+vectors/
+embeddings/
+faiss_indices/
+
+# Web search cache
+web_cache/
+search_cache/
+
+# Performance monitoring
+metrics/
+monitoring/
+
+# Analytics data
+analytics/
+stats/
+
+# Backup and recovery
+backups/
+recovery/
+
+# Rate limiting data
+rate_limits/
+throttling/
+
+# API response cache
+api_cache/
+response_cache/
+
+# Temporary uploads
+uploads/
+temp_uploads/
+
+# Processed content
+processed/
+content_cache/
+
+# Model outputs
+outputs/
+results/
+
+# Configuration backups
+config_backup/
+settings_backup/ 

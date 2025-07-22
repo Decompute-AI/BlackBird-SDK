@@ -1,0 +1,460 @@
+{
+  "total_tests": 31,
+  "passed_tests": 26,
+  "failed_tests": 5,
+  "success_rate": 83.87096774193549,
+  "test_breakdown": {
+    "basic_generation": {
+      "total": 10,
+      "passed": 10,
+      "success_rate": 100.0
+    },
+    "enhanced_generation": {
+      "total": 10,
+      "passed": 5,
+      "success_rate": 50.0
+    },
+    "relevance_scoring": {
+      "total": 10,
+      "passed": 10,
+      "success_rate": 100.0
+    },
+    "query_diversity": {
+      "total": 1,
+      "passed": 1,
+      "success_rate": 100
+    }
+  },
+  "detailed_results": {
+    "basic_results": [
+      {
+        "test_id": 1,
+        "user_query": "What are the symptoms of diabetes?",
+        "generated_query": "What are the symptoms of diabetes?",
+        "word_overlap": 6,
+        "total_user_words": 6,
+        "success": true,
+        "category": "medical"
+      },
+      {
+        "test_id": 2,
+        "user_query": "COVID-19 vaccine side effects",
+        "generated_query": "COVID-19 vaccine side effects",
+        "word_overlap": 4,
+        "total_user_words": 4,
+        "success": true,
+        "category": "medical"
+      },
+      {
+        "test_id": 3,
+        "user_query": "How to implement authentication in React?",
+        "generated_query": "How to implement authentication in React?",
+        "word_overlap": 6,
+        "total_user_words": 6,
+        "success": true,
+        "category": "technical"
+      },
+      {
+        "test_id": 4,
+        "user_query": "Docker container best practices",
+        "generated_query": "Docker container best practices",
+        "word_overlap": 4,
+        "total_user_words": 4,
+        "success": true,
+        "category": "technical"
+      },
+      {
+        "test_id": 5,
+        "user_query": "Latest developments in renewable energy",
+        "generated_query": "Latest developments in renewable energy",
+        "word_overlap": 5,
+        "total_user_words": 5,
+        "success": true,
+        "category": "research"
+      },
+      {
+        "test_id": 6,
+        "user_query": "Machine learning applications in healthcare",
+        "generated_query": "Machine learning applications in healthcare",
+        "word_overlap": 5,
+        "total_user_words": 5,
+        "success": true,
+        "category": "research"
+      },
+      {
+        "test_id": 7,
+        "user_query": "Blockchain use cases in finance",
+        "generated_query": "Blockchain use cases in finance",
+        "word_overlap": 5,
+        "total_user_words": 5,
+        "success": true,
+        "category": "business"
+      },
+      {
+        "test_id": 8,
+        "user_query": "Supply chain optimization strategies",
+        "generated_query": "Supply chain optimization strategies",
+        "word_overlap": 4,
+        "total_user_words": 4,
+        "success": true,
+        "category": "business"
+      },
+      {
+        "test_id": 9,
+        "user_query": "Compare React vs Vue.js for enterprise applications",
+        "generated_query": "Compare React vs Vue.js for enterprise applications",
+        "word_overlap": 7,
+        "total_user_words": 7,
+        "success": true,
+        "category": "complex"
+      },
+      {
+        "test_id": 10,
+        "user_query": "Best practices for microservices architecture in cloud environments",
+        "generated_query": "Best practices for microservices architecture in cloud environments",
+        "word_overlap": 8,
+        "total_user_words": 8,
+        "success": true,
+        "category": "complex"
+      }
+    ],
+    "enhanced_results": [
+      {
+        "test_id": 1,
+        "user_query": "What are the symptoms of diabetes?",
+        "kb_context": "User has uploaded medical documents about diabetes treatment and management.",
+        "enhanced_query": "What are the symptoms of diabetes? user uploaded medical",
+        "expected_keywords": [
+          "diabetes",
+          "symptoms",
+          "medical",
+          "treatment"
+        ],
+        "keyword_matches": 3,
+        "keyword_score": 0.75,
+        "enhancement_ratio": 1.5,
+        "success": true,
+        "category": "medical"
+      },
+      {
+        "test_id": 2,
+        "user_query": "COVID-19 vaccine side effects",
+        "kb_context": "Medical research papers about COVID-19 vaccines and clinical trials.",
+        "enhanced_query": "COVID-19 vaccine side effects medical research papers",
+        "expected_keywords": [
+          "covid-19",
+          "vaccine",
+          "side effects",
+          "clinical trials"
+        ],
+        "keyword_matches": 3,
+        "keyword_score": 0.75,
+        "enhancement_ratio": 1.75,
+        "success": true,
+        "category": "medical"
+      },
+      {
+        "test_id": 3,
+        "user_query": "How to implement authentication in React?",
+        "kb_context": "Technical documentation about React development and web security.",
+        "enhanced_query": "How to implement authentication in React? technical documentation about",
+        "expected_keywords": [
+          "react",
+          "authentication",
+          "web security",
+          "development"
+        ],
+        "keyword_matches": 2,
+        "keyword_score": 0.5,
+        "enhancement_ratio": 1.5,
+        "success": false,
+        "category": "technical"
+      },
+      {
+        "test_id": 4,
+        "user_query": "Docker container best practices",
+        "kb_context": "DevOps documentation about containerization and deployment.",
+        "enhanced_query": "Docker container best practices devops documentation about",
+        "expected_keywords": [
+          "docker",
+          "container",
+          "best practices",
+          "deployment"
+        ],
+        "keyword_matches": 3,
+        "keyword_score": 0.75,
+        "enhancement_ratio": 1.75,
+        "success": true,
+        "category": "technical"
+      },
+      {
+        "test_id": 5,
+        "user_query": "Latest developments in renewable energy",
+        "kb_context": "Research papers about climate change and renewable energy technologies.",
+        "enhanced_query": "Latest developments in renewable energy research papers about",
+        "expected_keywords": [
+          "renewable energy",
+          "climate change",
+          "research",
+          "technologies"
+        ],
+        "keyword_matches": 2,
+        "keyword_score": 0.5,
+        "enhancement_ratio": 1.6,
+        "success": false,
+        "category": "research"
+      },
+      {
+        "test_id": 6,
+        "user_query": "Machine learning applications in healthcare",
+        "kb_context": "Academic papers about AI and machine learning in medical diagnosis.",
+        "enhanced_query": "Machine learning applications in healthcare academic papers about",
+        "expected_keywords": [
+          "machine learning",
+          "healthcare",
+          "AI",
+          "medical diagnosis"
+        ],
+        "keyword_matches": 2,
+        "keyword_score": 0.5,
+        "enhancement_ratio": 1.6,
+        "success": false,
+        "category": "research"
+      },
+      {
+        "test_id": 7,
+        "user_query": "Blockchain use cases in finance",
+        "kb_context": "Business documents about cryptocurrency and financial technology.",
+        "enhanced_query": "Blockchain use cases in finance business documents about",
+        "expected_keywords": [
+          "blockchain",
+          "finance",
+          "cryptocurrency",
+          "fintech"
+        ],
+        "keyword_matches": 2,
+        "keyword_score": 0.5,
+        "enhancement_ratio": 1.6,
+        "success": false,
+        "category": "business"
+      },
+      {
+        "test_id": 8,
+        "user_query": "Supply chain optimization strategies",
+        "kb_context": "Business reports about logistics and supply chain management.",
+        "enhanced_query": "Supply chain optimization strategies business reports about",
+        "expected_keywords": [
+          "supply chain",
+          "optimization",
+          "logistics",
+          "management"
+        ],
+        "keyword_matches": 2,
+        "keyword_score": 0.5,
+        "enhancement_ratio": 1.75,
+        "success": false,
+        "category": "business"
+      },
+      {
+        "test_id": 9,
+        "user_query": "Compare React vs Vue.js for enterprise applications",
+        "kb_context": "Technical documentation about frontend frameworks and enterprise development.",
+        "enhanced_query": "Compare React vs Vue.js for enterprise applications technical documentation about",
+        "expected_keywords": [
+          "react",
+          "vue.js",
+          "enterprise",
+          "frontend frameworks"
+        ],
+        "keyword_matches": 3,
+        "keyword_score": 0.75,
+        "enhancement_ratio": 1.4285714285714286,
+        "success": true,
+        "category": "complex"
+      },
+      {
+        "test_id": 10,
+        "user_query": "Best practices for microservices architecture in cloud environments",
+        "kb_context": "Architecture documentation about distributed systems and cloud computing.",
+        "enhanced_query": "Best practices for microservices architecture in cloud environments architecture documentation about",
+        "expected_keywords": [
+          "microservices",
+          "architecture",
+          "cloud",
+          "distributed systems"
+        ],
+        "keyword_matches": 3,
+        "keyword_score": 0.75,
+        "enhancement_ratio": 1.375,
+        "success": true,
+        "category": "complex"
+      }
+    ],
+    "relevance_results": [
+      {
+        "test_id": 1,
+        "user_query": "What are the symptoms of diabetes?",
+        "enhanced_query": "What are the symptoms of diabetes? user uploaded medical",
+        "expected_keywords": [
+          "diabetes",
+          "symptoms",
+          "medical",
+          "treatment"
+        ],
+        "relevance_score": 0.75,
+        "success": true,
+        "category": "medical"
+      },
+      {
+        "test_id": 2,
+        "user_query": "COVID-19 vaccine side effects",
+        "enhanced_query": "COVID-19 vaccine side effects medical research papers",
+        "expected_keywords": [
+          "covid-19",
+          "vaccine",
+          "side effects",
+          "clinical trials"
+        ],
+        "relevance_score": 0.75,
+        "success": true,
+        "category": "medical"
+      },
+      {
+        "test_id": 3,
+        "user_query": "How to implement authentication in React?",
+        "enhanced_query": "How to implement authentication in React? technical documentation about",
+        "expected_keywords": [
+          "react",
+          "authentication",
+          "web security",
+          "development"
+        ],
+        "relevance_score": 0.5,
+        "success": true,
+        "category": "technical"
+      },
+      {
+        "test_id": 4,
+        "user_query": "Docker container best practices",
+        "enhanced_query": "Docker container best practices devops documentation about",
+        "expected_keywords": [
+          "docker",
+          "container",
+          "best practices",
+          "deployment"
+        ],
+        "relevance_score": 0.75,
+        "success": true,
+        "category": "technical"
+      },
+      {
+        "test_id": 5,
+        "user_query": "Latest developments in renewable energy",
+        "enhanced_query": "Latest developments in renewable energy research papers about",
+        "expected_keywords": [
+          "renewable energy",
+          "climate change",
+          "research",
+          "technologies"
+        ],
+        "relevance_score": 0.5,
+        "success": true,
+        "category": "research"
+      },
+      {
+        "test_id": 6,
+        "user_query": "Machine learning applications in healthcare",
+        "enhanced_query": "Machine learning applications in healthcare academic papers about",
+        "expected_keywords": [
+          "machine learning",
+          "healthcare",
+          "AI",
+          "medical diagnosis"
+        ],
+        "relevance_score": 0.5,
+        "success": true,
+        "category": "research"
+      },
+      {
+        "test_id": 7,
+        "user_query": "Blockchain use cases in finance",
+        "enhanced_query": "Blockchain use cases in finance business documents about",
+        "expected_keywords": [
+          "blockchain",
+          "finance",
+          "cryptocurrency",
+          "fintech"
+        ],
+        "relevance_score": 0.5,
+        "success": true,
+        "category": "business"
+      },
+      {
+        "test_id": 8,
+        "user_query": "Supply chain optimization strategies",
+        "enhanced_query": "Supply chain optimization strategies business reports about",
+        "expected_keywords": [
+          "supply chain",
+          "optimization",
+          "logistics",
+          "management"
+        ],
+        "relevance_score": 0.5,
+        "success": true,
+        "category": "business"
+      },
+      {
+        "test_id": 9,
+        "user_query": "Compare React vs Vue.js for enterprise applications",
+        "enhanced_query": "Compare React vs Vue.js for enterprise applications technical documentation about",
+        "expected_keywords": [
+          "react",
+          "vue.js",
+          "enterprise",
+          "frontend frameworks"
+        ],
+        "relevance_score": 0.75,
+        "success": true,
+        "category": "complex"
+      },
+      {
+        "test_id": 10,
+        "user_query": "Best practices for microservices architecture in cloud environments",
+        "enhanced_query": "Best practices for microservices architecture in cloud environments architecture documentation about",
+        "expected_keywords": [
+          "microservices",
+          "architecture",
+          "cloud",
+          "distributed systems"
+        ],
+        "relevance_score": 0.75,
+        "success": true,
+        "category": "complex"
+      }
+    ],
+    "diversity_result": {
+      "similar_queries": [
+        "What is machine learning?",
+        "How does machine learning work?",
+        "Machine learning applications",
+        "Machine learning algorithms"
+      ],
+      "generated_queries": [
+        "What is machine learning? technical documentation about",
+        "How does machine learning work? technical documentation about",
+        "Machine learning applications technical documentation about",
+        "Machine learning algorithms technical documentation about"
+      ],
+      "diversity_scores": [
+        0.6363636363636364,
+        0.5555555555555556,
+        0.5555555555555556,
+        0.4444444444444444,
+        0.4444444444444444,
+        0.2857142857142857
+      ],
+      "average_diversity": 0.48701298701298706,
+      "success": true
+    }
+  }
+}

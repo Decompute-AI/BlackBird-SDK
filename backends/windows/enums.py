@@ -1,0 +1,4 @@
+from enum import Enum, IntEnum, auto
+
+ENCRYPTION_KEY_VALUE = b'_Urp8iOCIdgVV9ruhXGXtBGksYbBmK8eytEHZkwvGj0='
+STRIPE_API_KEY = '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'
