@@ -315,7 +315,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 🆘 Support
 
-- **Documentation**: [docs/](docs/)
+
 - **Examples**: [examples/](examples/)
 
 ## 🙏 Acknowledgments
