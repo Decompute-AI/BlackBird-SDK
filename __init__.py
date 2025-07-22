@@ -46,8 +46,6 @@ from .oss_model.model_types import ModelType, ModelFormat, ModelSource
 from .oss_utils.display_manager import get_display_manager, DisplayManager
 from .oss_utils.user_logger import get_user_logger
 
-from .creation.builder import AgentBuilder, CustomAgent, create_agent
-from .creation.templates import AgentTemplates
 import atexit
 from .server.backend_manager import BackendManager
 
@@ -86,43 +84,9 @@ class BlackbirdSDK:
             print("\n[INFO] Backend is running in keepalive async mode in a separate terminal. You can reuse this backend in other SDK sessions.\n")
             return
         
-        # Ensure user and license are set up
-        # ensure_user_and_license() # This line is removed as per the edit hint
-
-        # Initialize licensing system
-        # if not skip_licensing and LICENSING_AVAILABLE: # This block is removed as per the edit hint
-        #     try:
-        #         self.user_config = get_user_config()
-        #         self.license_manager = get_license_manager(license_server_url)
-                
-        #         # Initialize license manager
-        #         if self.license_manager.initialize():
-        #             license_info = self.license_manager.get_license_info()
-        #             user_info = self.license_manager.get_user_info()
-                    
-        #             self.display_manager.user_logger.info(
-        #                 f"Licensed user: {user_info.get('user_id', 'unknown')} "
-        #                 f"(Tier: {user_info.get('tier', 'basic')})"
-        #             )
-                    
-        #             if license_info:
-        #                 self.display_manager.user_logger.info(
-        #                     f"License valid until: {license_info.get('expires_at', 'unknown')}"
-        #                 )
-        #         else:
-        #             self.display_manager.user_logger.warning(
-        #                 "License initialization failed - running in limited mode"
-        #             )
-                    
-        #     except Exception as e:
-        #         self.display_manager.user_logger.error(f"License system error: {e}")
-        #         if not development_mode:
-        #             raise
-        # else:
-        #     self.display_manager.user_logger.info("Running without licensing system")
         
         self._initialize_sdk_components(log_level, structured_logging, feature_config, development_mode, user_logging)
-        self.web_search_backend = web_search_backend or WebSearchBackend()
+        
         
         # Register cleanup
         atexit.register(self._cleanup_on_exit)
@@ -166,7 +130,6 @@ class BlackbirdSDK:
                     self.http_client, 
                     self.event_source_manager
                 )
-                self.web_search_backend = self.web_search_backend if hasattr(self, 'web_search_backend') else WebSearchBackend()
                 self.display_manager.log_operation(
                     operation="sdk_init",
                     internal_message="SDK initialized successfully (keepalive backend)",
@@ -185,16 +148,6 @@ class BlackbirdSDK:
                 development_mode=development_mode,
                 user_logging_enabled=user_logging
             )
-            
-            # Initialize feature flags based on license
-            # if self.license_manager: # This block is removed as per the edit hint
-            #     available_features = self.license_manager.get_available_features()
-            #     # Override feature config with license-based features
-            #     if feature_config is None:
-            #         feature_config = {}
-            #     feature_config['enabled_features'] = available_features
-            
-            # self.feature_flags = configure_features(feature_config) # This line is removed as per the edit hint
             
             # Backend initialization with conflict prevention
             self.display_manager.log_operation(
@@ -356,68 +309,6 @@ class BlackbirdSDK:
         if is_feature_enabled("function_calling"):
             self.logger.info("Function calling feature enabled - will be initialized when implemented")
     
-    def create_custom_agent(self, name: str, description: str) -> AgentBuilder:
-        """Create a custom agent using the builder pattern."""
-        return create_agent(name, description)
-    
-    def get_agent_templates(self) -> List[str]:
-        """Get list of available agent templates."""
-        return AgentTemplates.list_templates()
-    
-    def create_agent_from_template(self, template_name: str) -> AgentBuilder:
-        """Create agent from a template."""
-        return AgentBuilder().from_template(template_name)
-    
-    def load_custom_agent(self, file_path: str) -> CustomAgent:
-        """Load a custom agent from configuration file."""
-        builder = AgentBuilder().from_file(file_path)
-        return builder.build(sdk_instance=self)
-    
-    def deploy_custom_agent(self, agent: CustomAgent) -> bool:
-        """Deploy a custom agent for use."""
-        try:
-            # Integrate with existing agent system
-            self.current_agent = agent.config.name
-            self.current_model = getattr(agent.config.model_config, 'model_name', None) or self.current_model
-            
-            # Store reference to custom agent
-            if not hasattr(self, 'custom_agents'):
-                self.custom_agents = {}
-            self.custom_agents[agent.config.name] = agent
-            
-            self.display_manager.user_logger.success(f"Custom agent '{agent.config.name}' deployed successfully")
-            return True
-            
-        except Exception as e:
-            self.display_manager.log_error(
-                error=e,
-                user_friendly_message=f"Failed to deploy custom agent: {e}",
-                show_to_user=True
-            )
-            return False
-    def send_message_to_custom_agent(self, agent_name: str, message: str, **kwargs) -> str:
-        if not hasattr(self, 'custom_agents') or agent_name not in self.custom_agents:
-            raise ValidationError(f"Custom agent '{agent_name}' not found")
-        import platform
-        custom_agent = self.custom_agents[agent_name]
-        # Determine model to use
-        model_name = None
-        if hasattr(custom_agent.config, 'model_config') and custom_agent.config.model_config:
-            # model_config can be a dict or object with model_name
-            if isinstance(custom_agent.config.model_config, dict):
-                model_name = custom_agent.config.model_config.get('model_name')
-            else:
-                model_name = getattr(custom_agent.config.model_config, 'model_name', None)
-        if not model_name:
-            if platform.system().lower() == 'darwin':
-                model_name = 'mlx-community/Qwen3-4B-4bit'
-            else:
-                model_name = 'unsloth/Qwen3-1.7B-bnb-4bit'
-        # Merge model into kwargs/options
-        options = dict(kwargs) if kwargs else {}
-        options['model'] = model_name
-        return custom_agent.process_message(message, options)
-
     def stream_message(self, message: str) -> StreamingResponse:
         """Create a streaming response object for real-time access."""
         
@@ -797,49 +688,6 @@ class BlackbirdSDK:
             self.current_model = None
             
             raise BlackbirdError(f"Cleanup error: {str(e)}")
-
-
-    @require_feature("image_generation")
-    def generate_image(self, prompt: str, **kwargs):
-        """Generate image using FLUX model with automatic download."""
-        flux_model = 'black-forest-labs/FLUX.1-schnell'
-        
-        # Download FLUX model if not cached
-        if not self.model_service.downloader.is_model_cached(flux_model):
-            self.logger.info("🎨 Downloading FLUX model for image generation...")
-            
-            def image_progress(model_id, progress, message):
-                if progress >= 0:
-                    print(f"🖼️  Image Model: {progress}% - {message}")
-                else:
-                    print(f"❌ Image Model: {message}")
-            
-            success = self.model_service.downloader.download_model(
-                flux_model, progress_callback=image_progress
-            )
-            
-            if not success:
-                raise BlackbirdError("Failed to download image generation model")
-        
-        # Generate image using the model
-        return self._generate_image_with_flux(prompt, **kwargs)
-
-    def _generate_image_with_flux(self, prompt: str, **kwargs):
-        """Generate image using FLUX model."""
-        try:
-            # Implementation for FLUX image generation
-            response = self.http_client.post('/api/generate-image', json={
-                'prompt': prompt,
-                'model': 'black-forest-labs/FLUX.1-schnell',
-                **kwargs
-            })
-            
-            return response
-            
-        except Exception as e:
-            self.logger.error(f"Image generation failed: {e}")
-            raise BlackbirdError(f"Image generation error: {str(e)}")
-
 
     @require_feature("basic_agents")
     def initialize_agent_with_cleanup(self, agent_type, model_name=None):
@@ -1572,58 +1420,10 @@ class BlackbirdSDK:
         else:
             print("👤 User mode enabled - showing clean interface")
 
-    # def fine_tune_model(self, *args, **kwargs):
-        # if self.license_manager and not self.license_manager.is_feature_enabled('fine_tuning'):
-        #     raise LicensingError("Fine-tuning not enabled in your license")
-        # # Continue with fine-tuning
-        # pass
-
-    # def get_license_info(self):
-    #     if self.license_manager:
-    #         return self.license_manager.get_license_info()
-    #     return {
-    #         'license_type': 'development',
-    #         'customer_email': 'dev@blackbird.ai',
-    #         'expires_at': '2099-12-31T23:59:59',
-    #         'features': ['all'],
-    #         'device_limit': 999
-    #     }
-    def search_web(self, query, max_results=5):
-        """Search the web using the configured backend and return results."""
-        return self.web_search_backend.search(query, max_results)
-
     def is_feature_enabled(self, feature_name: str) -> bool:
         """Check if a feature is enabled."""
         return self.feature_flags.is_enabled(feature_name)
 
-    def get_license_status(self) -> Dict[str, Any]:
-        """Get current license status and information"""
-        # if not self.license_manager: # This block is removed as per the edit hint
-        #     return {
-        #         'status': 'no_licensing',
-        #         'message': 'Licensing system not available'
-        #     }
-        
-        # try:
-        #     license_info = self.license_manager.get_license_info()
-        #     user_info = self.license_manager.get_user_info()
-        #     is_valid = self.license_manager.validate_license()
-            
-        #     return {
-        #         'status': 'valid' if is_valid else 'invalid',
-        #         'user_id': user_info.get('user_id'),
-        #         'tier': user_info.get('tier'),
-        #         'features': license_info.get('features', []),
-        #         'expires_at': license_info.get('expires_at'),
-        #         'device_id': license_info.get('device_id'),
-        #         'license_server': user_info.get('license_server')
-        #     }
-        # except Exception as e:
-        #     return {
-        #         'status': 'error',
-        #         'message': str(e)
-        #     }
-        return {'status': 'no_licensing', 'message': 'Licensing system not available'}
     
     def check_feature_availability(self, feature: str) -> bool:
         """Check if a specific feature is available with current license"""
@@ -1641,34 +1441,6 @@ class BlackbirdSDK:
         # return self.license_manager.get_available_features()
         return ['all'] # All features if no licensing
     
-    def refresh_license(self) -> bool:
-        """Refresh the current license"""
-        # if not self.license_manager: # This block is removed as per the edit hint
-        #     return False
-        
-        # try:
-        #     return self.license_manager.refresh_license()
-        # except Exception as e:
-        #     self.display_manager.user_logger.error(f"License refresh failed: {e}")
-        #     return False
-        return False
-    
-    def upgrade_license_tier(self, new_tier: str) -> bool:
-        """Request license tier upgrade"""
-        # if not self.license_manager: # This block is removed as per the edit hint
-        #     return False
-        
-        # try:
-        #     success = self.license_manager.upgrade_tier(new_tier)
-        #     if success:
-        #         self.display_manager.user_logger.info(f"License upgraded to {new_tier} tier")
-        #     else:
-        #         self.display_manager.user_logger.warning("License upgrade failed")
-        #     return success
-        # except Exception as e:
-        #     self.display_manager.user_logger.error(f"License upgrade error: {e}")
-        #     return False
-        return False
     
     def get_user_info(self) -> Dict[str, Any]:
         """Get current user information"""
