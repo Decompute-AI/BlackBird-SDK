@@ -17,7 +17,7 @@ A powerful, open-source AI SDK for local inference, RAG, file processing. Built 
 - **Windows**: Windows 10/11 (64-bit)
 - **macOS**: macOS 10.15+ (Intel/Apple Silicon)
 - **Linux**: Ubuntu 18.04+ or equivalent
-- **Python**: 3.8 - 3.11
+- **Python**: 3.12
 - **RAM**: Minimum 8GB, Recommended 16GB+
 - **Storage**: 10GB+ free space for models
 
