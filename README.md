@@ -9,7 +9,7 @@ A powerful, open-source AI SDK for local inference, RAG, file processing. Built 
 - **File Processing**: Upload and process various document formats
 - **Streaming Responses**: Real-time streaming chat responses
 - **Cross-Platform**: Works on Windows, macOS, and Linux
-- **No Licensing Required**: Completely open source and free to use
+- **MIT Licensing**
 
 ## 📋 Requirements
 
